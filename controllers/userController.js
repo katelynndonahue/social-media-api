@@ -22,7 +22,7 @@ getSingleUser(req, res) {
   // Create a user
   createUser(req, res) {
     User.create(req.body)
-      .then((course) => res.json(user))
+      .then((user) => res.json(user))
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
@@ -30,7 +30,7 @@ getSingleUser(req, res) {
   },
   // Delete a user
   deleteUser(req, res) {
-    User.findOneAndDelete({ _id: req.params.courseId })
+    User.findOneAndDelete({ _id: req.params.userId })
       .then((course) =>
         !course
           ? res.status(404).json({ message: 'No user with that ID' })
@@ -42,7 +42,7 @@ getSingleUser(req, res) {
   // Update a user
   updateUser(req, res) {
     User.findOneAndUpdate(
-      { _id: req.params.courseId },
+      { _id: req.params.userId },
       { $set: req.body },
       { runValidators: true, new: true }
     )
@@ -53,4 +53,32 @@ getSingleUser(req, res) {
       )
       .catch((err) => res.status(500).json(err));
   },
-};
+  // Add a friend
+  addFriend(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $addSet: { friends: req.params.friendId }},
+      { runValidators: true, new: true }
+    )
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'No user with this id!' })
+          : res.json(course)
+      )
+      .catch((err) => res.status(500).json(err));
+    },
+  // Remove a friend
+  deleteFriend(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $pull: { friends: req.params.friendId }},
+      { runValidators: true, new: true }
+    )
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'No user with this id!' })
+          : res.json(course)
+      )
+      .catch((err) => res.status(500).json(err));
+}
+}

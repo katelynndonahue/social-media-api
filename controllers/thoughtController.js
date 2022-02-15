@@ -48,27 +48,31 @@ getSingleThought(req, res) {
   // Update a thought
   updateThought(req, res) {
     Thought.findOneAndUpdate(
-      { _id: req.params.courseId },
+      { _id: req.params.userId },
       { $set: req.body },
       { runValidators: true, new: true }
     )
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: 'No thought with this id!' })
-          : res.json(course)
+          : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Get a reaction
-    getReaction(req, res) {
-    Reaction.findOne({ _id: req.params.reaction })
-      .select('-__v')
-      .then((reaction) =>
-        !reaction
-          ? res.status(404).json({ message: 'No reaction' })
-          : res.json(reaction))
-      .catch((err) => res.status(500).json(err));
-},
+  // Add a reaction
+ addReaction(req, res) {
+  Thought.findOneAndUpdate(
+    { _id: req.params.thoughtId },
+    { $addSet: { reactions: req.body }},
+    { runValidators: true, new: true }
+  )
+    .then((user) =>
+      !user
+        ? res.status(404).json({ message: 'No user with this id!' })
+        : res.json(user)
+    )
+    .catch((err) => res.status(500).json(err));
+  },
   // Delete a reaction
   deleteReaction(req, res) {
     Reaction.findOneAndDelete({ _id: req.params.reactionId })
