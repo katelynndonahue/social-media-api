@@ -15,7 +15,7 @@ I began by creating a uniquely named repository on GitHub and cloned the SSH key
 ## Usage
 
     ```md
-    ![alt text](./assets/images/socialInsomniaSS.png)
+    ![Social Media Insomnia screen shot](./assets/images/socialInsomniaSS.png)
     ```
 
 ## Credits
