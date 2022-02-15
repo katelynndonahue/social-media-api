@@ -13,6 +13,7 @@ As a social media startup I want an API for my social network that uses a NoSQL 
 I began by creating a uniquely named repository on GitHub and cloned the SSH key to work locally. I then took the starter code and began to flesh out my initial file and folder setup. From there, I utilized the previous lessons to build the code, created my user and thought controllers, models, and routes. I used Insomnia to perform the CRUD operations.
 
 ## Usage
+I utilized Express.js for routing, a MongoDB database, and the Mongoose ODM.
 
     ```md
     ![Social Media Insomnia screen shot](./assets/images/socialInsomniaSS.png)
