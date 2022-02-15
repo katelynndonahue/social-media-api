@@ -1,6 +1,5 @@
 const router = require('express').Router();
 
-const { put } = require('.');
 const {
     getThoughts,
     createThought,

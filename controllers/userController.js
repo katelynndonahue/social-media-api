@@ -49,21 +49,23 @@ getSingleUser(req, res) {
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with this id!' })
-          : res.json(course)
+          : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
   },
   // Add a friend
   addFriend(req, res) {
+    console.log (req.params.userId)
+    console.log (req.params.friendId)
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $addSet: { friends: req.params.friendId }},
+      { $addToSet: { friends: req.params.friendId }},
       { runValidators: true, new: true }
     )
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with this id!' })
-          : res.json(course)
+          : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
     },
@@ -77,7 +79,7 @@ getSingleUser(req, res) {
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with this id!' })
-          : res.json(course)
+          : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
 }
